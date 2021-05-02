@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  twitter:
+    build: "./twitter"
+    depends_on:
+      - mongodb
+    environment: 
+      - MONGO_HOST=mongodb
+
+  mongodb:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=admin
+    ports:
+      - '27017:27017'
+    volumes: 
+      - mongo-data:/data/db
+  
+
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    depends_on:
+      - mongodb
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+    ports:
+      - '8081:8081'
+
+volumes: 
+  mongo-data: {}
