@@ -4,7 +4,10 @@ import os
 
 # Connect to mongo
 MONGO_HOST = os.environ['MONGO_HOST'] if 'MONGO_HOST' in os.environ else 'localhost'
-mongo = pymongo.MongoClient(f"mongodb://root:password@{MONGO_HOST}:27017/")
+MONGO_USER = os.environ['MONGO_USER'] if 'MONGO_USER' in os.environ else 'root'
+MONGO_PASSWORD = os.environ['MONGO_PASSWORD'] if 'MONGO_PASSWORD' in os.environ else 'password'
+
+mongo = pymongo.MongoClient(f"mongodb://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_HOST}:27017/")
 
 # Select our target mongo collection
 mongo_db = mongo['twitter']

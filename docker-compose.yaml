@@ -2,11 +2,14 @@ version: "3.7"
 
 services:
   twitter:
-    build: "./twitter"
+    image: nerucius/twitter
+    # build: "./twitter"
     depends_on:
       - mongodb
     environment: 
       - MONGO_HOST=mongodb
+      - MONGO_USER=root
+      - MONGO_PASSWORD=password
 
   mongodb:
     image: mongo
